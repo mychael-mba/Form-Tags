@@ -9,6 +9,7 @@ export default function AddTags() {
 
   const [inputValue, setInputValue] = useState('')
   const [addTags, setAddTags] = useState([])
+  
 
   // Event handler for the input field
   const changeHandler = (e) => setInputValue(e.target.value)
@@ -19,8 +20,8 @@ export default function AddTags() {
     if(inputValue.trim() !== ''){
       setAddTags(prevAddTags => [...prevAddTags, inputValue])
       setInputValue('')
-    }; 
-  }  
+    }
+  };  
   
   // Event handler to delete a specific tag
   const deleteTagHandler = (index) => {
@@ -33,11 +34,11 @@ export default function AddTags() {
         <div className="add-tags-input-container">
           <form onSubmit={addTagHandler}>
             <div className="input-container">
-              <label htmlFor="input">Add Tags <span>(max.8)</span>
+              <label htmlFor="input">Add Tags {addTags.length >= 8 ? <span style={{color: 'red'}}>(max reached. Kindly delete a tag) </span> : <span>(max.8)</span>} 
                 <FontAwesomeIcon icon={faCircleInfo} className='info-icon' />
               </label>
               <div className="input-field-container">
-                <input type="text" name="add-tag" id="add-tag" value={inputValue} onChange={changeHandler}/>
+                <input type="text" name="add-tag" id="add-tag" value={inputValue} onChange={changeHandler} disabled={addTags.length >= 8}/>
                 <button type='submit' className='add-tag-icon'><FontAwesomeIcon icon={faPlus} /></button>
               </div>
             </div>
